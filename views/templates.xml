@@ -9,7 +9,7 @@
         <div class="row"> <!-- barra de estadísticas -->
           <div class="col col-sm">
             <div class="o_form_view">
-              <div class="o_not_full oe_button_box" >
+              <div class="o_not_full d-flex justify-content-end flex-wrap">
                 <t t-if="is_validator and user_num_higher_level > 0">
                   <t t-call="maya_valid.client_statinfo_template">
                     <t t-set="help" t-value="'Convalidaciones enviadas a instancia superior'" />
@@ -142,7 +142,7 @@
               </span>
             </div>
           </span>
-          <span class="o_stat_text">
+          <span class="o_stat_text" t-att-style="style">
             <t t-esc="text_subtitle"/>
           </span>
         </div>

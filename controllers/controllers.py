@@ -52,9 +52,11 @@ class ValidationController(http.Controller):
     num_finished = request.env['maya_valid.validation_subject'].search_count(['|', ('state','=','6'), ('state','=','7')])
     num_rejected = request.env['maya_valid.validation_subject'].search_count(['&', ('state','>=','3'), ('accepted','=','2')])
 
+    qweb = request.env['ir.qweb']
+
     return {
       # hay que prefijar con el nombre del módulo, aunque el id del template no lo lleva
-      'html': request.env.ref('maya_valid.validation_banner_template')._render({
+      'html': qweb._render('maya_valid.validation_banner_template', {
               'is_root': is_root,
               'num_valid': num_valid,
               # es validador
