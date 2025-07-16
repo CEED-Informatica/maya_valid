@@ -8,7 +8,7 @@
         <tree banner_route="/validation/validation_banner" limit="20">
           <field name="course_abbr"/>
           <field name="student_info"/>
-          <field name="student_surname" attrs="{'invisible':1}"/>
+          <field name="student_surname" invisible="1"/>
           <field name="validation_subjects_info"/>
           <field name="state"/>
           <field name="situation" decoration-warning="situation == '3'" decoration-danger="situation == '4'"/>
@@ -63,7 +63,7 @@
           <header>
             <button name="validation_to_finished" icon="fa-flag-checkered" 
               string=" Finalizar" class="oe_edit_only oe_highlight"
-              attrs="{'invisible': ['|', ('state', '!=', '2'), ('validation_subjects_info', '!=', '0 / 0 / 0 / 0')]}"
+              invisible="state != '2' or validation_subjects_info != '0 / 0 / 0 / 0'"
               type="object"
               confirm="ATENCIÓN: Esta acción está pensanda para forzar el cierre de convalidaciones en estado de subsanación de formato que han sido abandonadas por el alumno. ¿Deseas continuar?"/>
           </header>
@@ -72,7 +72,7 @@
               <field name="student_surname"/>
               <field name="student_nia"/>
               <!-- lo incluyo (aunque oculto) para poder utilizar el campo en la condición del botón de finalizar -->
-              <field name="validation_subjects_info" attrs="{'invisible': 1 }"/>
+              <field name="validation_subjects_info" invisible="1"/>
             </group>
             <group>
               <field name="student_name"/>
@@ -87,12 +87,12 @@
                   type="object"/>
                 <button name="download_validation_claim_action" icon="fa-download" 
                   string=" Reclamación" class="oe_highlight"
-                  type="object" attrs="{'invisible': [('claimed','!=', True)] }"/>
+                  type="object" invisible="claimed != True"/>
               </group> 
              <group> 
               <field name="sign_info" decoration-success="sign_state == True" decoration-danger="sign_state == False"/>
-              <field name="sign_state" attrs="{'invisible': 1 }"/>
-              <field name="validation_type" attrs="{'invisible': 1 }"/>
+              <field name="sign_state" invisible="1"/>
+              <field name="validation_type" invisible="1"/>
             </group> 
             <group>
               <field name="documentation_filename" />
@@ -105,7 +105,7 @@
           </group>
           <group>
             <field name="info" class="info"
-              attrs="{'invisible': [('info','=', '')] }" />
+              invisible="info == ''" />
           </group>
           <notebook>
             <page string='Módulos'>
@@ -120,20 +120,14 @@
                   <tree editable="top">
                     <field name="subject_id" options="{'no_open': True}" readonly="1"/>
                     <field name="is_read_only" string="Bloqueada" 
-                      attrs="{'column_invisible': [
-                                          '&amp;',
-                                          '!', ('parent.situation', '=', '5'),
-                                          '!','&amp;',('parent.state', '=', '2'), ('parent.situation', '=', '2')]}"/>
-                    <field name="validation_type" attrs="{'readonly':['|',('is_read_only','=',True),('parent.validation_type','=', 1)]}"/>
-                    <field name="accepted" attrs="{'readonly':[('is_read_only','=',True)]}"/>
-                    <field name="mark" attrs="{'readonly':['|',('is_read_only','=',True),('parent.validation_type','=', 1)]}"/>
-                    <field name="state" attrs="{'readonly':[('is_read_only','=',True)],
-                                                'column_invisible': [('parent.is_state_read_only', '=', True)]}"/>
-                    <field name="state_read_only" attrs="{ 'readonly': True,
-                                                'column_invisible': [('parent.is_state_read_only', '=', False)]}"/>
-
-                    <field name="validation_reason" attrs="{'readonly':['|',('is_read_only','=',True),('parent.validation_type','=', 1)]}" />
-                    <field name="comments" attrs="{'readonly':[('is_read_only','=',True)]}"/>
+                     column_invisible="not (parent.situation=='5') and not (parent.state == '2' and parent.situation == '2')"/>
+                    <field name="validation_type" readonly="is_read_only == True or parent.validation_type == 1"/>
+                    <field name="accepted" readonly="is_read_only == True"/>
+                    <field name="mark" readonly="is_read_only == True or parent.validation_type == 1"/>
+                    <field name="state" readonly="True" column_invisible="parent.is_state_read_only == False"/>
+                    <field name="state_read_only" readonly="True" column_invisible="parent.is_state_read_only == False"/>
+                    <field name="validation_reason" readonly="is_read_only == True or parent.validation_type == 1" />
+                    <field name="comments" readonly="is_read_only == True"/>
                   </tree>
                 </field>
                 <field name="validation_subjects_for_correction_ids"> 
@@ -142,25 +136,22 @@
                   <tree editable="top"> 
                     <field name="subject_id" options="{'no_open': True}" readonly="1"/>
                     <field name="is_read_only" string="Bloqueada" 
-                      attrs="{'column_invisible': [
-                                          '&amp;',
-                                          '!', ('parent.situation', '=', '5'),
-                                          '!','&amp;',('parent.state', '=', '2'), ('parent.situation', '=', '2')]}"/>
-                    <field name="validation_type" attrs="{'readonly':[('is_read_only','=',True)]}"/>
-                    <field name="state" attrs="{'readonly':[('is_read_only','=',True)]}"/>
-                    <field name="correction_reason" attrs="{'readonly':[('is_read_only','=',True)]}"/>
+                      column_invisible="not (parent.situation=='5') and not (parent.state == '2' and parent.situation == '2')"/>
+                    <field name="validation_type" readonly="is_read_only == True"/>
+                    <field name="state" readonly="is_read_only == True"/>
+                    <field name="correction_reason" readonly="is_read_only == True"/>
                   </tree>
                 </field>
               </group>
             </page>
             <page string='Observ. subsanación' >
               <group>
-                <field name="remarks" attrs="{'readonly':[('state','not in',['0','1','2','3','4'])]}"/>
+                <field name="remarks" readonly="state not in ['0','1','2','3','4']"/>
               </group>
             </page>
-            <page string='Observ. reclamación' attrs="{'invisible': [('claimed','!=', True)] }">
+            <page string='Observ. reclamación' invisible="claimed != True">
               <group>
-                <field name="claimed" attrs="{'invisible': 1 }"/>
+                <field name="claimed" invisible="1"/>
                 <field name="remarks_claim"/>
               </group>
             </page>
