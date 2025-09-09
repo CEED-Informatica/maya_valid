@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': "Maya | Convalidaciones",
-    'version': '0.1.0a',
+    'version': '17.0.2.0',
 
     'summary': """
         Extensión de Maya | Core para la gestión de convalidaciones""",
