@@ -548,11 +548,11 @@ class CronJobDownloadValidations(models.TransientModel):
 
         # es el nombre del módulo
         if key.startswith('C_Modulo') and len(key) < 12 and key[-2:] != 'UC':
-          #code = fields[key][0][:(fields[key][0].find(' -'))]
-          if fields[key][0][:2] == 'CV':
+          code = fields[key][0][:(fields[key][0].find(' -'))]
+          """ if fields[key][0][:2] == 'CV':
             code = fields[key][0][:6]
           else:
-            code = fields[key][0][:4]
+            code = fields[key][0][:4] """
 
           if val_type == STUDIES_VAL:
             validation_type = fields[key + 'AACO'][0][:2].lower()
