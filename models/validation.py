@@ -61,7 +61,7 @@ class Validation(models.Model):
 
   # aporta información extra sobre el estado de la convalidación  
   situation = fields.Selection([
-      ('0', ''),
+      ('0', ' '),
       ('1', 'Pendiente de notificación al alumno'),
       ('2', 'Notificación enviada'),
       ('3', 'Nuevo envio de documentación'),
