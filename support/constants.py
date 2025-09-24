@@ -25,7 +25,8 @@ PDF_VALIDATION_FIELDS_MANDATORY = [
       #('E_Dia', 'Día de la firma'),
       #('E_Mes', 'Mes de la firma'),
       #('E_Anyo', 'Año de la firma'),
-      ('E_Ciudad', 'Ciudad de la firma')]
+      #('E_Ciudad', 'Ciudad de la firma')
+      ]
 
 # campos del anexo pdf de convalidaciones que deben ir juntos
 # no puede haber valor en el primer item si lo hay en el segundo
