@@ -59,6 +59,13 @@
       <field name="departament_id" ref="maya_core.departament_COM" />
     </record>
 
+    <record model="maya_core.rol" id="maya_valid.rol_CONVMIP">
+      <field name="rol">CONV</field>
+      <field name="description">Convalidador del ciclo de MIP</field>
+      <field name="course_id" ref="maya_core.course_MIP" />
+      <field name="departament_id" ref="maya_core.departament_COM" />
+    </record>
+
     <!-- Turismo -->
     <record model="maya_core.rol" id="maya_valid.rol_CONVGAT">
       <field name="rol">CONV</field>
