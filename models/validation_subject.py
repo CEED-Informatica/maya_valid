@@ -93,7 +93,7 @@ class ValidationSubject(models.Model):
       ('AA', 'Común con otro ciclo formativo (AA)'),
       ('OCF', 'Otro(s) módulo(s) de Ciclo Formativo'),
       ('AUC', 'Aporta todas las Unidades de Competencia'),
-      ('CPM', 'Convalidada previamente por el Ministerio'),
+      ('CPI', 'Convalidada previamente por el Ministerio'),
       ('CPM', 'Estudios Labora/Servef o similar'),
       ], string ='Razón de la convalidación', 
       help = "Permite indicar el motivo por el que acepta o deniega la convalidación")
