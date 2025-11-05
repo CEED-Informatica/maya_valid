@@ -72,7 +72,7 @@ class CronJobNotifyValidationsClaims(models.TransientModel):
     if len(assignments) == 0:
       raise MayaException(
           _logger, 
-          'No se ha encontrado la tarea para la reclamación de convalidaciones (moodle_id: {})'.format(validation_task_id),
+          'No se ha encontrado la tarea para la reclamación de convalidaciones (moodle_id: {})'.format(validation_claim_task_id),
           50, # critical
           comments = '''Es posible que la tarea con moodle_id:{} no exista en moodle o no
                       exista dentro del curso con moodle_id: {}. 
