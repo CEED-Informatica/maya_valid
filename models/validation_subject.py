@@ -235,6 +235,13 @@ class ValidationSubject(models.Model):
 
     if int(state) > 2 and validation_type == 'ca' and accepted != False:
         raise ValidationError(f'No se puede aceptar o denegar la convalidación de {self.subject_id.name} ya que fue aprobado o convalidado anteriormente')
+    
+    # en caso de convalidaciones por competencias los campos mark y validation_reason son asignados automaticamente
+    # y desde la version 17 no se actulizan el valor a través de onchange
+    # lo asigno a mano
+    if accepted == '1'  and  self.validation_id.validation_type == 1: ## competencias
+      vals.setdefault('mark', 'CO')
+      vals.setdefault('validation_reason', 'AUC')
 
     if int(state) > 2 and accepted == '1' and \
       (not self._check_attribute_value('mark', vals) or \
