@@ -37,7 +37,8 @@ class WizardReportAllByCourse(models.TransientModel):
        os.makedirs(os.path.join(addons_path, 'maya_core','tmp_files', 'reports', now))
 
     for course in courses:
-      validations = self.env['maya_valid.validation'].search([('course_id', '=', course.id), ('state', '=', 14)], order = 'student_surname asc')
+      validations = self.env['maya_valid.validation'].search([('course_id', '=', course.id), ('state', '=', '15')], 
+                                                             order = 'student_surname asc')
 
       """ pdf, _ = self.env['ir.actions.report'].with_context(
         report_data={'course': course.abbr}
@@ -46,9 +47,9 @@ class WizardReportAllByCourse(models.TransientModel):
       ) """
     
       pdf, _ = self.env['ir.actions.report']._render_qweb_pdf(
-          'maya_valid.validations_pdf_report',
-          res_ids=[val.id for val in validations],
-          data={ 'course': course.abbr}
+          'maya_valid.report_validations',
+          validations.ids,  #[val.id for val in validations],
+          data={ 'course': course.abbr }
         )
    
       path_tmp = os.path.join(addons_path, 'maya_core/tmp_files/reports', now, f'Convalidaciones_cerradas_{course.abbr}.pdf')
@@ -71,7 +72,7 @@ class WizardReportAllByCourse(models.TransientModel):
 
     return {
       'type': 'ir.actions.act_url',
-      'target': 'self',
+      'target': 'new',
       'url': url
     }
 

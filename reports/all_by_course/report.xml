@@ -3,12 +3,12 @@
     <field name="name">Convalidaciones</field>
     <field name="model">maya_valid.validation</field>
     <field name="report_type">qweb-pdf</field>
-    <field name="report_file">Listado convalidaciones</field>
+    <field name="report_file">maya_valid.report_validations</field>
     <field name="report_name">maya_valid.report_validations</field>
     <field name="print_report_name">'Convalidaciones - %s' % (object.school_year_id.name)</field>
   </record>
 
-  <template id="report_validations">
+  <template id="maya_valid.report_validations">
     <t t-call="web.html_container">
       <!-- por si se mandará a imprimir calendarios de varios cursos escolares -->
      
@@ -20,11 +20,11 @@
           <link rel="stylesheet" href="/maya_core/static/css/school_calendar_report.css"/>
         </xpath>
         <style/>
-        <!-- <t t-esc="data.get('course')"/> <t t-esc="report_data.get('course')"/>-->
-        <h3>Convalidaciones </h3>
+        <!--  <t t-esc="report_data.get('course')"/>-->
+        <h3>Convalidaciones <t t-esc="course"/></h3>
+        
         <t t-foreach="docs" t-as="record">
           <div class="page">
-           <!--   <p><span><t t-esc="record.student_surname"/>, <t t-esc="record.student_name"/> (<t t-esc="record.student_nia"/>)</span></p> -->
             <p><span><t t-esc="record.student_info"/></span></p>
 
             <table class="table table-striped table-sm">
